@@ -7,10 +7,10 @@
     <h1>CVE-2008-7220 PoC com Proxy</h1>
 
     <!-- Carrega o Prototype.js através do proxy -->
-    <script type="text/javascript" src="https://bugbounty-mu.vercel.app/prototype.js"></script>
+    <script type="text/javascript" src="/prototype.js"></script>
 
     <script type="text/javascript">
-    var url = 'https://bugbounty-mu.vercel.app/proxy.html';  // URL do proxy
+    var url = '/proxy';  // URL do novo proxy em Node.js
 
     // Faz a solicitação AJAX para o proxy, que encaminhará para o servidor de destino
     new Ajax.Request(url, {
