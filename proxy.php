@@ -1,8 +1,8 @@
 <?php
-// URL do endpoint real
+// URL do endpoint real no domínio de destino
 $url = 'https://sales.apple.com/home';
 
-// Inicializar o cURL
+// Inicializa o cURL
 $ch = curl_init($url);
 
 // Configurações do cURL
