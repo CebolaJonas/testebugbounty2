@@ -6,18 +6,23 @@ export default function handler(req, res) {
   https.get(url, (resp) => {
     let data = '';
 
-    // A chunk of data has been received.
+    // Recebe os dados em partes
     resp.on('data', (chunk) => {
       data += chunk;
     });
 
-    // The whole response has been received. Print out the result.
+    // Quando toda a resposta for recebida
     resp.on('end', () => {
-      res.setHeader('Content-Type', 'text/javascript');
-      res.status(200).send(data);
+      if (resp.statusCode >= 200 && resp.statusCode < 300) {
+        res.setHeader('Content-Type', 'text/javascript');
+        res.status(200).send(data);
+      } else {
+        res.status(resp.statusCode).send(`Error: ${resp.statusCode} ${resp.statusMessage}`);
+      }
     });
 
   }).on("error", (err) => {
-    res.status(500).send('Error: ' + err.message);
+    console.error('Erro na requisição:', err.message);
+    res.status(500).send('Erro na requisição: ' + err.message);
   });
 }
