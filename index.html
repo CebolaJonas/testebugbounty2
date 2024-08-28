@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carregar Conteúdo do index.php</title>
+</head>
+<body>
+    <h1>Conteúdo Dinâmico</h1>
+    <div id="content">
+        <!-- O conteúdo do index.php será carregado aqui -->
+    </div>
+
+    <script>
+        // URL do index.php no servidor onde está hospedado
+        const phpUrl = 'https://bugbounty-mu.vercel.app/index.php';
+
+        // Função para carregar o conteúdo do index.php
+        async function loadContent() {
+            try {
+                const response = await fetch(phpUrl);
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar o conteúdo: ' + response.statusText);
+                }
+                const content = await response.text();
+                document.getElementById('content').innerHTML = content;
+            } catch (error) {
+                console.error('Erro:', error);
+                document.getElementById('content').innerHTML = 'Erro ao carregar o conteúdo.';
+            }
+        }
+
+        // Chama a função ao carregar a página
+        window.onload = loadContent;
+    </script>
+</body>
+</html>
