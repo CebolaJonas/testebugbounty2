@@ -3,7 +3,15 @@ const https = require('https');
 export default function handler(req, res) {
   const url = 'https://sales.apple.com/home';
 
-  https.get(url, (resp) => {
+  // Opções para ignorar verificação SSL
+  const options = {
+    hostname: 'sales.apple.com',
+    path: '/home',
+    method: 'GET',
+    rejectUnauthorized: false // Ignora verificação SSL
+  };
+
+  const request = https.request(options, (resp) => {
     let data = '';
 
     // Recebe os dados em partes
@@ -20,9 +28,14 @@ export default function handler(req, res) {
         res.status(resp.statusCode).send(`Error: ${resp.statusCode} ${resp.statusMessage}`);
       }
     });
+  });
 
-  }).on("error", (err) => {
+  // Trata erro de requisição
+  request.on('error', (err) => {
     console.error('Erro na requisição:', err.message);
     res.status(500).send('Erro na requisição: ' + err.message);
   });
+
+  // Envia a requisição
+  request.end();
 }
