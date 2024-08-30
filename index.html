@@ -10,7 +10,8 @@
     <script type="text/javascript" src="/prototype.js"></script>
 
     <script type="text/javascript">
-    var url = 'https://cors-anywhere.herokuapp.com/https://sales.apple.com/home';  // URL com bypass de CORS
+    // URL do destino usando corsproxy.io com bypass de CORS
+    var url = 'https://corsproxy.io/?https%3A%2F%2Fsales.apple.com%2Fhome';
 
     // Faz a solicitação AJAX para o servidor de destino diretamente (bypass de CORS)
     new Ajax.Request(url, {
