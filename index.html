@@ -1,39 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>XMLHttpRequest PoC</title>
+    <title>Exemplo de Acesso a Dados Protegidos</title>
 </head>
 <body>
-    <h1>XMLHttpRequest PoC</h1>
+    <h1>Dados Protegidos</h1>
+    <button id="fetch-data">Buscar Dados</button>
+    <pre id="data"></pre>
 
     <script>
-        // Função para fazer a requisição e exibir o conteúdo no console
-        function fetchPageContent() {
-            var xhr = new XMLHttpRequest();
-            var url = 'https://sales.apple.com/home'; // URL do destino
-
-            xhr.open('GET', url, true); // Configura a requisição GET
-
-            // Define o que fazer quando a requisição for completada
-            xhr.onload = function() {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    console.log(xhr.responseText); // Exibe o conteúdo da resposta no console
-                } else {
-                    console.log('Falha na requisição: ' + xhr.status);
-                }
-            };
-
-            // Define o que fazer se a requisição falhar
-            xhr.onerror = function() {
-                console.log('Erro na requisição.');
-            };
-
-            // Envia a requisição
-            xhr.send();
-        }
-
-        // Executa a função para buscar o conteúdo da página
-        fetchPageContent();
+        document.getElementById('fetch-data').addEventListener('click', () => {
+            fetch('/api/protected-data', {
+                method: 'GET',
+                credentials: 'include' // Inclui cookies com a requisição
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('data').textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => console.error('Erro ao buscar dados:', error));
+        });
     </script>
 </body>
 </html>
