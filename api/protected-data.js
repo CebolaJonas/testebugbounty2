@@ -1,6 +1,6 @@
 const express = require('express');
 const axios = require('axios');
-const https = require('https'); // Importa o módulo https
+const https = require('https');
 const cors = require('cors');
 const app = express();
 
@@ -16,7 +16,7 @@ app.use(cors({
 
 app.get('/api/protected-data', async (req, res) => {
     try {
-        // Captura os cookies enviados pelo navegador
+        // Captura os cookies fornecidos para a requisição do frontend
         const cookies = req.headers.cookie;
 
         // Faz a requisição ao servidor de destino com os cookies de autenticação
@@ -30,7 +30,7 @@ app.get('/api/protected-data', async (req, res) => {
         // Envia a resposta para o frontend
         res.json(response.data);
     } catch (error) {
-        console.error('Erro ao buscar dados:', error.message); // Adiciona um log do erro
+        console.error('Erro ao buscar dados:', error.message);
         res.status(500).send(`Erro ao buscar dados: ${error.message}`);
     }
 });
