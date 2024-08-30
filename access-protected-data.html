@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exemplo de Acesso a Dados Protegidos</title>
+</head>
+<body>
+    <h1>Dados Protegidos</h1>
+    <button id="fetch-data">Buscar Dados</button>
+    <pre id="data"></pre>
+
+    <script>
+        document.getElementById('fetch-data').addEventListener('click', () => {
+            fetch('/api/protected-data', {
+                method: 'GET',
+                credentials: 'include' // Inclui cookies com a requisição
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('data').textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => console.error('Erro ao buscar dados:', error));
+        });
+    </script>
+</body>
+</html>
