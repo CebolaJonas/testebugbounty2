@@ -1,6 +1,16 @@
+const express = require('express');
 const axios = require('axios');
+const app = express();
+const cors = require('cors');
 
-module.exports = async (req, res) => {
+// Permitir CORS para todos os domínios (ou ajuste conforme necessário)
+app.use(cors({
+    origin: '*',
+    credentials: true
+}));
+
+// Endpoint que o frontend chama
+app.get('/api/protected-data', async (req, res) => {
     try {
         // Captura os cookies enviados pelo navegador
         const cookies = req.headers.cookie;
@@ -13,8 +23,12 @@ module.exports = async (req, res) => {
         });
 
         // Envia a resposta para o frontend
-        res.status(200).json(response.data);
+        res.json(response.data);
     } catch (error) {
+        console.error('Erro ao buscar dados:', error); // Adiciona um log do erro
         res.status(500).send('Erro ao buscar dados');
     }
-};
+});
+
+// Inicia o servidor
+app.listen(3000, () => console.log('Servidor ouvindo na porta 3000'));
